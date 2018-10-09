@@ -28,7 +28,7 @@ For this part of the assignment, you can ignore the missing values in the datase
 
 ```r
 steps.per.day <- with(data, tapply(steps, date, sum, na.rm = TRUE))
-hist(steps.per.day)
+hist(steps.per.day, breaks = 10, xlab = "Steps per Day")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
@@ -50,7 +50,9 @@ The mean steps per day is 9354, and the median is 10395
 
 ```r
 average.daily.steps <- with(data, tapply(steps, interval, mean, na.rm = TRUE))
-plot((names(average.daily.steps)), average.daily.steps, type = "l")
+plot((names(average.daily.steps)), average.daily.steps, type = "l",
+     xlab = "5-minute interval",
+     ylab = "Average Daily Steps")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
@@ -100,7 +102,7 @@ for(i in 1:nrow(data)){
 
 ```r
 steps.per.day2 <- with(imputed.data, tapply(steps, date, sum, na.rm = TRUE))
-hist(steps.per.day2)
+hist(steps.per.day2, breaks = 10, xlab = "Steps per Day")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
@@ -136,10 +138,19 @@ imputed.data$day.type <- as.factor(with(imputed.data, sapply(date, aux)))
 average.daily.steps2 <- with(imputed.data, tapply(steps, list(interval, day.type), mean))
 
 average.daily.steps2 <- as.data.frame(average.daily.steps2)
-par(mfrow = c(2, 1))
-plot((rownames(average.daily.steps2)), average.daily.steps2$weekday, type = "l")
 
-plot((rownames(average.daily.steps2)), average.daily.steps2$weekend, type = "l")
+par(mfrow = c(2, 1))
+plot((rownames(average.daily.steps2)), average.daily.steps2$weekday,
+     type = "l",
+     xlab = "5-minute interval",
+     main = "Average Daily Steps on Weekday",
+     ylab = "Average Daily Steps")
+
+plot((rownames(average.daily.steps2)), average.daily.steps2$weekend,
+     type = "l",
+     xlab = "5-minute interval",
+     main = "Average Daily Steps on Weekday",
+     ylab = "Average Daily Steps")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-10-1.png)<!-- -->

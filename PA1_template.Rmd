@@ -27,7 +27,7 @@ For this part of the assignment, you can ignore the missing values in the datase
 
 ```{r, fig.height=4}
 steps.per.day <- with(data, tapply(steps, date, sum, na.rm = TRUE))
-hist(steps.per.day)
+hist(steps.per.day, breaks = 10, xlab = "Steps per Day")
 ```
 
 2. Calculate and report the mean and median total number of steps taken per day
@@ -45,7 +45,9 @@ The mean steps per day is `r round(mean.step, 0)`, and the median is `r median.s
 
 ```{r, fig.height=4}
 average.daily.steps <- with(data, tapply(steps, interval, mean, na.rm = TRUE))
-plot((names(average.daily.steps)), average.daily.steps, type = "l")
+plot((names(average.daily.steps)), average.daily.steps, type = "l",
+     xlab = "5-minute interval",
+     ylab = "Average Daily Steps")
 ```  
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
@@ -89,7 +91,7 @@ for(i in 1:nrow(data)){
 
 ```{r, fig.height=4}
 steps.per.day2 <- with(imputed.data, tapply(steps, date, sum, na.rm = TRUE))
-hist(steps.per.day2)
+hist(steps.per.day2, breaks = 10, xlab = "Steps per Day")
 
 mean.step2 <- mean(steps.per.day2)
 median.step2 <- median(steps.per.day2)
@@ -122,7 +124,15 @@ average.daily.steps2 <- with(imputed.data, tapply(steps, list(interval, day.type
 average.daily.steps2 <- as.data.frame(average.daily.steps2)
 
 par(mfrow = c(2, 1))
-plot((rownames(average.daily.steps2)), average.daily.steps2$weekday, type = "l")
+plot((rownames(average.daily.steps2)), average.daily.steps2$weekday,
+     type = "l",
+     xlab = "5-minute interval",
+     main = "Average Daily Steps on Weekday",
+     ylab = "Average Daily Steps")
 
-plot((rownames(average.daily.steps2)), average.daily.steps2$weekend, type = "l")
+plot((rownames(average.daily.steps2)), average.daily.steps2$weekend,
+     type = "l",
+     xlab = "5-minute interval",
+     main = "Average Daily Steps on Weekday",
+     ylab = "Average Daily Steps")
 ```
